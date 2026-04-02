@@ -53,6 +53,9 @@ const year = new Date().getFullYear();
         <img src="/shadow-keyglyph.svg" alt="Shadow Keyglyph" class="keyglyph-svg" />
       </div>
       <div class="keyglyph-shadow"></div>
+      <h1 class="glyph-title">Shadow</h1>
+      <p class="glyph-subtitle">The Keyglyph Saga</p>
+      <p class="glyph-author">by Quentin Burroughs</p>
     </section>
 
     <!-- Hero -->
@@ -255,6 +258,33 @@ const year = new Date().getFullYear();
       transform: scaleX(0.7);
       opacity: 0.15;
     }
+  }
+
+  .glyph-title {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 700;
+    color: #fff;
+    margin: 1.5rem 0 0.5rem;
+    letter-spacing: 0.03em;
+    text-shadow: 0 2px 30px rgba(255, 255, 255, 0.3);
+    line-height: 1;
+  }
+
+  .glyph-subtitle {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: #000;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .glyph-author {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    color: #000;
+    margin: 0;
+    letter-spacing: 0.02em;
   }
 
   /* ── Hero ── */
