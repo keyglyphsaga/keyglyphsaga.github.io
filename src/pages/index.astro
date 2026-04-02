@@ -47,9 +47,9 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="hero-content">
-        <!-- Book cover -->
-        <div class="book-cover">
-          <img src="/mockup2.png" alt="Shadow — The Keyglyph Saga book cover" class="book-img" />
+        <!-- Shadow Keyglyph symbol (top) -->
+        <div class="keyglyph-top">
+          <img src="/shadow-keyglyph-new.svg" alt="Shadow Keyglyph" class="keyglyph-top-img" />
         </div>
 
         <!-- Title block -->
@@ -89,7 +89,8 @@ const year = new Date().getFullYear();
       html, body {
         width: 100%;
         overflow-x: hidden;
-        background: #000;
+        background: linear-gradient(135deg, #761E2E 0%, #213998 100%);
+        min-height: 100vh;
       }
 
       /* ── Hero Section ── */
@@ -115,6 +116,9 @@ const year = new Date().getFullYear();
         object-fit: cover;
         object-position: center;
         display: block;
+        /* Feathered edges — radial mask fades to transparent around the perimeter */
+        mask-image: radial-gradient(ellipse 70% 65% at center, #000 40%, transparent 100%);
+        -webkit-mask-image: radial-gradient(ellipse 70% 65% at center, #000 40%, transparent 100%);
       }
 
       .hero-content {
@@ -128,21 +132,23 @@ const year = new Date().getFullYear();
         text-align: center;
       }
 
-      /* ── Book Cover ── */
-      .book-cover {
+      /* ── Keyglyph Top (replaces book cover) ── */
+      .keyglyph-top {
         margin-bottom: 1.5rem;
+        animation: float 3s ease-in-out infinite;
       }
 
-      .book-img {
-        width: 140px;
-        height: auto;
-        transform: perspective(800px) rotateY(-8deg);
-        filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.5));
-        transition: transform 0.4s ease;
+      .keyglyph-top-img {
+        width: 120px;
+        height: 120px;
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))
+                drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))
+                drop-shadow(0 0 60px rgba(255, 255, 255, 0.15));
       }
 
-      .book-img:hover {
-        transform: perspective(800px) rotateY(0deg) scale(1.05);
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
       }
 
       /* ── Title ── */
@@ -230,8 +236,9 @@ const year = new Date().getFullYear();
         .hero-content {
           padding: 2rem 1.5rem;
         }
-        .book-img {
-          width: 110px;
+        .keyglyph-top-img {
+          width: 90px;
+          height: 90px;
         }
         .cta-button {
           padding: 12px 32px;
