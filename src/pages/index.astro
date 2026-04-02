@@ -62,10 +62,7 @@ const year = new Date().getFullYear();
           Buy on Amazon
         </a>
 
-        <!-- Keyglyph symbol -->
-        <div class="keyglyph-symbol">
-          <img src="/shadow-keyglyph-new.svg" alt="" class="keyglyph-img" />
-        </div>
+
       </div>
     </section>
 
@@ -141,9 +138,10 @@ const year = new Date().getFullYear();
       .keyglyph-top-img {
         width: 120px;
         height: 120px;
-        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))
-                drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))
-                drop-shadow(0 0 60px rgba(255, 255, 255, 0.15));
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9))
+                drop-shadow(0 0 30px rgba(255, 255, 255, 0.7))
+                drop-shadow(0 0 50px rgba(255, 255, 255, 0.5))
+                drop-shadow(0 0 80px rgba(255, 255, 255, 0.3));
       }
 
       @keyframes float {
@@ -184,7 +182,7 @@ const year = new Date().getFullYear();
       .cta-button {
         display: inline-block;
         padding: 14px 44px;
-        background: linear-gradient(to bottom, #cc1111, #880000);
+        background: #761E2E;
         color: #fff;
         font-family: system-ui, -apple-system, sans-serif;
         font-size: 1rem;
@@ -193,26 +191,20 @@ const year = new Date().getFullYear();
         letter-spacing: 0.15em;
         text-decoration: none;
         border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         transition: all 0.3s ease;
         margin-bottom: 2rem;
       }
 
       .cta-button:hover {
-        background: linear-gradient(to bottom, #dd2222, #aa0000);
+        background: #213998;
         transform: translateY(-2px);
-        box-shadow: 0 6px 30px rgba(180, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        box-shadow: 0 6px 30px rgba(33, 57, 152, 0.5);
       }
 
-      /* ── Keyglyph Symbol ── */
-      .keyglyph-symbol {
-        opacity: 0.8;
-      }
-
-      .keyglyph-img {
-        width: 70px;
-        height: 70px;
-        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+      .cta-button:active {
+        background: #1a2e7a;
+        transform: translateY(0);
       }
 
       /* ── Footer ── */
@@ -244,10 +236,7 @@ const year = new Date().getFullYear();
           padding: 12px 32px;
           font-size: 0.9rem;
         }
-        .keyglyph-img {
-          width: 55px;
-          height: 55px;
-        }
+
       }
     </style>
   </body>
