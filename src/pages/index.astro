@@ -25,9 +25,6 @@ const year = new Date().getFullYear();
     <meta name="twitter:image" content="https://keyglyphsaga.github.io/og-image.png" />
 
     <link rel="icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
     <style>
       @font-face {
         font-family: 'Cardinal';
@@ -40,43 +37,31 @@ const year = new Date().getFullYear();
   </head>
   <body>
 
-    <!-- Full-page hero with illustration background -->
     <section class="hero">
       <div class="hero-bg">
         <img src="/illustration-opt.jpg" alt="" class="hero-bg-img" />
       </div>
 
       <div class="hero-content">
-        <!-- Shadow Keyglyph symbol (top) -->
         <div class="keyglyph-top">
           <img src="/shadow-keyglyph-new.svg" alt="Shadow Keyglyph" class="keyglyph-top-img" />
         </div>
 
-        <!-- Title block -->
         <h1 class="title">Shadow</h1>
         <p class="subtitle">The Keyglyph Saga</p>
         <p class="author">by Quentin Burroughs</p>
 
-        <!-- CTA -->
         <a href="https://www.amazon.com" class="cta-button" target="_blank" rel="noopener">
           Buy on Amazon
         </a>
-
-
       </div>
     </section>
 
-    <!-- Footer -->
     <footer>
       <p>&copy; {year} Quentin Burroughs. All rights reserved.</p>
     </footer>
 
     <style>
-      :root {
-        --font-display: 'Cardinal', 'Times New Roman', serif;
-        --font-body: 'Gelasio', Georgia, serif;
-      }
-
       * {
         margin: 0;
         padding: 0;
@@ -90,7 +75,6 @@ const year = new Date().getFullYear();
         min-height: 100vh;
       }
 
-      /* ── Hero Section ── */
       .hero {
         position: relative;
         width: 100%;
@@ -113,7 +97,6 @@ const year = new Date().getFullYear();
         object-fit: cover;
         object-position: center;
         display: block;
-        /* Feathered edges — radial mask fades to transparent around the perimeter */
         mask-image: radial-gradient(ellipse 70% 65% at center, #000 40%, transparent 100%);
         -webkit-mask-image: radial-gradient(ellipse 70% 65% at center, #000 40%, transparent 100%);
       }
@@ -129,7 +112,6 @@ const year = new Date().getFullYear();
         text-align: center;
       }
 
-      /* ── Keyglyph Top (replaces book cover) ── */
       .keyglyph-top {
         margin-bottom: 1.5rem;
         animation: float 3s ease-in-out infinite;
@@ -149,9 +131,8 @@ const year = new Date().getFullYear();
         50% { transform: translateY(-10px); }
       }
 
-      /* ── Title ── */
       .title {
-        font-family: var(--font-display);
+        font-family: 'Cardinal', 'Times New Roman', serif;
         font-size: clamp(3.5rem, 10vw, 7rem);
         font-weight: 700;
         color: #fff;
@@ -161,7 +142,7 @@ const year = new Date().getFullYear();
       }
 
       .subtitle {
-        font-family: var(--font-display);
+        font-family: 'Cardinal', 'Times New Roman', serif;
         font-size: clamp(1.1rem, 3vw, 1.8rem);
         color: #fff;
         margin-bottom: 0.2em;
@@ -178,7 +159,6 @@ const year = new Date().getFullYear();
         letter-spacing: 0.03em;
       }
 
-      /* ── CTA Button ── */
       .cta-button {
         display: inline-block;
         padding: 14px 44px;
@@ -193,7 +173,6 @@ const year = new Date().getFullYear();
         border-radius: 8px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         transition: all 0.3s ease;
-        margin-bottom: 2rem;
       }
 
       .cta-button:hover {
@@ -207,13 +186,11 @@ const year = new Date().getFullYear();
         transform: translateY(0);
       }
 
-      /* ── Footer ── */
       footer {
         position: relative;
         z-index: 2;
         text-align: center;
         padding: 1.5rem;
-        background: #000;
       }
 
       footer p {
@@ -223,7 +200,6 @@ const year = new Date().getFullYear();
         margin: 0;
       }
 
-      /* ── Responsive ── */
       @media (max-width: 768px) {
         .hero-content {
           padding: 2rem 1.5rem;
@@ -236,7 +212,6 @@ const year = new Date().getFullYear();
           padding: 12px 32px;
           font-size: 0.9rem;
         }
-
       }
     </style>
   </body>
