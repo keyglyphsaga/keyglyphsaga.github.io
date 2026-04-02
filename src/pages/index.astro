@@ -56,6 +56,12 @@ const year = new Date().getFullYear();
       <h1 class="glyph-title">Shadow</h1>
       <p class="glyph-subtitle">The Keyglyph Saga</p>
       <p class="glyph-author">by Quentin Burroughs</p>
+
+      <!-- Divider Glyph -->
+      <div class="divider-float">
+        <div class="divider-glow"></div>
+        <img src="/divider-glyph.svg" alt="" class="divider-svg" />
+      </div>
     </section>
 
 
@@ -240,6 +246,29 @@ const year = new Date().getFullYear();
       transform: scaleX(0.7);
       opacity: 0.15;
     }
+  }
+
+  /* ── Divider Glyph ── */
+  .divider-float {
+    position: relative;
+    margin-top: 2.5rem;
+    animation: zelda-float 3s ease-in-out infinite;
+  }
+
+  .divider-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.08) 40%, transparent 70%);
+    filter: blur(16px);
+    border-radius: 50%;
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  .divider-svg {
+    position: relative;
+    width: 200px;
+    height: auto;
+    filter: invert(1) drop-shadow(0 0 12px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
   }
 
   .glyph-title {
