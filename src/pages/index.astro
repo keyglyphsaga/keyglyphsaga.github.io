@@ -7,76 +7,376 @@ const year = new Date().getFullYear();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <title>Keyglyph Saga</title>
+    <title>Keyglyph Saga — Shadow</title>
+    <meta name="description" content="Shadow — the first book in the Keyglyph Saga by Quentin Burroughs. A fantasy adventure awaits." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      @font-face {
+        font-family: 'Cardinal';
+        src: url('/fonts/Cardinal.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
   </head>
   <body>
-    <main>
-      <img src="/placeholder.svg" alt="Keyglyph Saga" class="hero" />
-      <h1>Keyglyph Saga</h1>
-      <p class="tagline">Coming Soon</p>
-    </main>
+    <!-- Floating particles -->
+    <div class="particles" aria-hidden="true">
+      {Array.from({ length: 20 }).map((_, i) => (
+        <span class="particle" style={`--i: ${i}; --x: ${Math.random() * 100}; --delay: ${Math.random() * 8}s; --duration: ${6 + Math.random() * 6}s; --size: ${3 + Math.random() * 5}px;`} />
+      ))}
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <img src="/element.png" alt="" class="keyglyph-mark" />
+          <p class="series-label">The Keyglyph Saga</p>
+          <h1>Shadow</h1>
+          <p class="author">by <strong>Quentin Burroughs</strong></p>
+          <p class="tagline">Four unlikely heroes. An ancient power awakening. A world on the edge of shadow.</p>
+          <a href="https://www.amazon.com" class="cta" target="_blank" rel="noopener">
+            Buy on Amazon
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
+        <div class="hero-book">
+          <div class="book-glow"></div>
+          <img src="/mockup2.png" alt="Shadow — The Keyglyph Saga book cover" class="book-cover" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Illustration section -->
+    <section class="illustration-section">
+      <img src="/illustration.png" alt="Characters beneath the glowing trees of the Keyglyph world" class="illustration" />
+    </section>
+
+    <!-- About section -->
+    <section class="about">
+      <div class="about-inner">
+        <h2>Enter the World</h2>
+        <p>
+          In a realm where ancient glyphs hold the keys to unimaginable power, four young heroes find themselves drawn together by fate — and hunted by shadows that should not exist.
+        </p>
+        <p>
+          <em>Shadow</em> is the first book in the Keyglyph Saga, a fantasy adventure that blends mystery, friendship, and a world where nothing is quite what it seems.
+        </p>
+        <div class="about-cta">
+          <a href="https://www.amazon.com" class="cta cta-secondary" target="_blank" rel="noopener">
+            Get Your Copy
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
+      <img src="/element.png" alt="" class="footer-mark" />
       <p>&copy; {year} Keyglyph Saga. All rights reserved.</p>
     </footer>
   </body>
 </html>
 
 <style>
+  /* ── Tokens ── */
   :root {
-    --bg: #0a0a0f;
-    --text: #e0dfe4;
-    --accent: #7c6fea;
+    --bg-deep: #0e1129;
+    --bg-surface: #161a3a;
+    --bg-card: #1e234d;
+
+    --red: #d41b2c;
+    --red-glow: #e8384f;
+    --red-dark: #8b1a2b;
+    --red-rose: #c4647a;
+
+    --blue: #4a8fd4;
+    --blue-muted: #3a6ba0;
+
+    --text: #f0e8f0;
+    --text-secondary: #a8a0c0;
+    --text-muted: #7b6fa0;
+
+    --font-display: 'Cardinal', Georgia, serif;
+    --font-body: system-ui, -apple-system, sans-serif;
   }
 
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; }
   html {
-    background: var(--bg);
+    background: var(--bg-deep);
     color: var(--text);
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: var(--font-body);
+    scroll-behavior: smooth;
   }
-
   body {
     margin: 0;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+
+  /* ── Particles ── */
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    background: var(--red);
+    border-radius: 50%;
+    opacity: 0;
+    left: calc(var(--x) * 1%);
+    animation: float var(--duration) var(--delay) infinite ease-in-out;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
   }
 
-  main {
-    flex: 1;
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-    text-align: center;
+    padding: 4rem 2rem;
+    background:
+      radial-gradient(ellipse at 30% 80%, rgba(212, 27, 44, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 20%, rgba(74, 143, 212, 0.06) 0%, transparent 50%),
+      var(--bg-deep);
+  }
+  .hero-inner {
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
   }
 
-  .hero {
-    width: 100%;
-    max-width: 480px;
-    height: auto;
-    margin-bottom: 2rem;
-    border-radius: 12px;
+  .keyglyph-mark {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+    filter: invert(1) brightness(0.85) sepia(1) hue-rotate(300deg) saturate(2);
+    opacity: 0.7;
+  }
+
+  .series-label {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red-rose);
+    margin: 0 0 0.5rem;
   }
 
   h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    margin: 0 0 0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-weight: 700;
+    line-height: 1;
+    margin: 0 0 0.75rem;
+    color: var(--text);
     letter-spacing: 0.02em;
-    color: var(--accent);
+  }
+
+  .author {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0 0 1.5rem;
+  }
+  .author strong {
+    color: var(--text);
   }
 
   .tagline {
+    font-family: var(--font-display);
     font-size: 1.25rem;
-    opacity: 0.7;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin: 0 0 2rem;
+    line-height: 1.6;
+    max-width: 420px;
+  }
+
+  /* ── CTA ── */
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--red);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    letter-spacing: 0.02em;
+  }
+  .cta:hover {
+    background: var(--red-glow);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(212, 27, 44, 0.35);
+  }
+  .cta-secondary {
+    background: transparent;
+    border: 2px solid var(--red);
+    color: var(--red-rose);
+  }
+  .cta-secondary:hover {
+    background: var(--red);
+    color: #fff;
+    border-color: var(--red);
+  }
+
+  /* ── Book ── */
+  .hero-book {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .book-glow {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(212, 27, 44, 0.15) 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: 0;
+  }
+  .book-cover {
+    position: relative;
+    z-index: 1;
+    max-width: 440px;
+    width: 100%;
+    border-radius: 8px;
+    filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
+    transition: transform 0.4s ease;
+  }
+  .book-cover:hover {
+    transform: scale(1.03) rotate(-1deg);
+  }
+
+  /* ── Illustration ── */
+  .illustration-section {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .illustration {
+    width: 100%;
+    display: block;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  /* ── About ── */
+  .about {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(74, 143, 212, 0.05) 0%, transparent 60%),
+      var(--bg-deep);
+    text-align: center;
+  }
+  .about-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 1.5rem;
+  }
+  .about p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin: 0 0 1.25rem;
+  }
+  .about-cta {
+    margin-top: 2.5rem;
+  }
+
+  /* ── Footer ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .footer-mark {
+    width: 28px;
+    height: 28px;
+    margin: 0 auto 1rem;
+    filter: invert(1);
+    opacity: 0.3;
+  }
+  footer p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
     margin: 0;
   }
 
-  footer {
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 0.85rem;
-    opacity: 0.5;
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 3rem 1.5rem;
+      min-height: auto;
+    }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      text-align: center;
+    }
+    .hero-text {
+      order: 1;
+    }
+    .hero-book {
+      order: 0;
+    }
+    .keyglyph-mark {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tagline {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .book-cover {
+      max-width: 320px;
+    }
   }
 </style>
