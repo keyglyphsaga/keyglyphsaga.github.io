@@ -230,7 +230,7 @@ const year = new Date().getFullYear();
       const canvas = document.getElementById('particles');
       const ctx = canvas.getContext('2d');
       let particles = [];
-      const COUNT = 50;
+      const COUNT = 25;
 
       function resize() {
         const hero = canvas.parentElement;
@@ -242,7 +242,7 @@ const year = new Date().getFullYear();
         return {
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          r: Math.random() * 3 + 1,
+          r: Math.random() * 5 + 0.5,
           dx: (Math.random() - 0.5) * 0.4,
           dy: -(Math.random() * 0.3 + 0.1),
           opacity: Math.random() * 0.6 + 0.2,
