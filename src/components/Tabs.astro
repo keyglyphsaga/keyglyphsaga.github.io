@@ -1,0 +1,84 @@
+---
+interface Props {
+  active: "shadow" | "author";
+}
+
+const { active } = Astro.props;
+---
+
+<nav class="tabs" aria-label="Primary">
+  <a
+    href="/"
+    class:list={["tab", { active: active === "shadow" }]}
+    aria-current={active === "shadow" ? "page" : undefined}>Shadow</a>
+  <a
+    href="/about"
+    class:list={["tab", { active: active === "author" }]}
+    aria-current={active === "author" ? "page" : undefined}>Author</a>
+</nav>
+
+<style>
+  .tabs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.6rem 1rem;
+  }
+
+  .tab {
+    position: relative;
+    padding: 0.4rem 1.3rem 0.6rem;
+    font-family: 'Gelasio', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+    transition: color 0.3s ease;
+  }
+
+  .tab::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0.15rem;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+
+  .tab:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .tab.active {
+    color: #fff;
+  }
+
+  .tab.active::after {
+    width: calc(100% - 2.6rem);
+  }
+
+  @media (max-width: 768px) {
+    .tab {
+      padding: 0.4rem 1rem 0.6rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+    }
+
+    .tab.active::after {
+      width: calc(100% - 2rem);
+    }
+  }
+</style>

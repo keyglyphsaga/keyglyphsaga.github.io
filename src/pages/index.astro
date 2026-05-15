@@ -1,4 +1,7 @@
 ---
+import { ClientRouter } from "astro:transitions";
+import Tabs from "../components/Tabs.astro";
+
 const year = new Date().getFullYear();
 ---
 
@@ -37,15 +40,19 @@ const year = new Date().getFullYear();
         font-display: swap;
       }
     </style>
+
+    <ClientRouter />
   </head>
   <body>
 
     <section class="hero">
-      <div class="hero-bg">
+      <div class="hero-bg" transition:persist="hero-bg">
         <img src="/illustration-opt.jpg" alt="" class="hero-bg-img" />
       </div>
 
-      <canvas id="particles" class="particles-canvas"></canvas>
+      <canvas id="particles" class="particles-canvas" transition:persist="particles"></canvas>
+
+      <Tabs active="shadow" />
 
       <div class="hero-content">
         <div class="keyglyph-top">
@@ -293,9 +300,12 @@ const year = new Date().getFullYear();
         requestAnimationFrame(draw);
       }
 
-      window.addEventListener('resize', resize);
-      init();
-      draw();
+      if (!window.__kgsParticles) {
+        window.__kgsParticles = true;
+        window.addEventListener('resize', resize);
+        init();
+        draw();
+      }
     </script>
   </body>
 </html>

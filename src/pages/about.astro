@@ -1,4 +1,7 @@
 ---
+import { ClientRouter } from "astro:transitions";
+import Tabs from "../components/Tabs.astro";
+
 const year = new Date().getFullYear();
 ---
 
@@ -37,15 +40,19 @@ const year = new Date().getFullYear();
         font-display: swap;
       }
     </style>
+
+    <ClientRouter />
   </head>
   <body>
 
     <section class="hero">
-      <div class="hero-bg">
+      <div class="hero-bg" transition:persist="hero-bg">
         <img src="/illustration-opt.jpg" alt="" class="hero-bg-img" />
       </div>
 
-      <canvas id="particles" class="particles-canvas"></canvas>
+      <canvas id="particles" class="particles-canvas" transition:persist="particles"></canvas>
+
+      <Tabs active="author" />
 
       <div class="hero-content">
         <h1 class="title">About the Author</h1>
@@ -55,9 +62,10 @@ const year = new Date().getFullYear();
           <p>A self admitted odd duck, Quentin is a writer who loves getting his stories out to the world. A permanent D&amp;D Dungeon Master, Quentin grew used to telling stories to others and even himself as he plotted his player's next major twist or event. With a focus on relatable characters, Quentin wishes to tell stories that he hopes people will, more than anything, enjoy reading.</p>
         </div>
 
-        <a href="/" class="cta-button">
-          Back
-        </a>
+        <p class="contact">
+          Get in touch —
+          <a href="mailto:keyglyphsaga@yahoo.com" class="contact-link">keyglyphsaga@yahoo.com</a>
+        </p>
       </div>
     </section>
 
@@ -119,9 +127,16 @@ const year = new Date().getFullYear();
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 3rem 2rem;
-        text-align: center;
         max-width: 720px;
+        margin: 0 1.25rem;
+        padding: 3rem 2.5rem;
+        text-align: center;
+        background: rgba(16, 14, 32, 0.62);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 20px;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
       }
 
       .title {
@@ -155,31 +170,24 @@ const year = new Date().getFullYear();
         text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
       }
 
-      .cta-button {
-        display: inline-block;
-        padding: 14px 44px;
-        background: #761E2E;
-        color: #fff;
+      .contact {
         font-family: 'Gelasio', Georgia, serif;
-        font-size: 1rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-        text-decoration: none;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        transition: all 0.3s ease;
+        font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        letter-spacing: 0.02em;
       }
 
-      .cta-button:hover {
-        background: #213998;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 30px rgba(33, 57, 152, 0.5);
+      .contact-link {
+        color: #fff;
+        text-decoration: underline;
+        text-decoration-color: rgba(255, 255, 255, 0.45);
+        text-underline-offset: 3px;
+        transition: text-decoration-color 0.3s ease, color 0.3s ease;
       }
 
-      .cta-button:active {
-        background: #1a2e7a;
-        transform: translateY(0);
+      .contact-link:hover {
+        text-decoration-color: rgba(255, 255, 255, 0.95);
       }
 
       footer {
@@ -198,11 +206,8 @@ const year = new Date().getFullYear();
 
       @media (max-width: 768px) {
         .hero-content {
-          padding: 2rem 1.5rem;
-        }
-        .cta-button {
-          padding: 12px 32px;
-          font-size: 0.9rem;
+          margin: 0 1rem;
+          padding: 2.25rem 1.75rem;
         }
       }
     </style>
@@ -260,9 +265,12 @@ const year = new Date().getFullYear();
         requestAnimationFrame(draw);
       }
 
-      window.addEventListener('resize', resize);
-      init();
-      draw();
+      if (!window.__kgsParticles) {
+        window.__kgsParticles = true;
+        window.addEventListener('resize', resize);
+        init();
+        draw();
+      }
     </script>
   </body>
 </html>
