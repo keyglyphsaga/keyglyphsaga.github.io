@@ -1,276 +1,103 @@
 ---
-import { ClientRouter } from "astro:transitions";
-import Tabs from "../components/Tabs.astro";
-
-const year = new Date().getFullYear();
+import Base from "../layouts/Base.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <title>About the Author — Keyglyph Saga</title>
-    <meta name="description" content="About Quentin Burroughs, author of the Keyglyph Saga." />
+<Base
+  title="About the Author — Keyglyph Saga"
+  description="About Quentin Burroughs, author of the Keyglyph Saga."
+  ogUrl="https://keyglyphsaga.github.io/about"
+  active="author"
+>
+  <div class="hero-content">
+    <h1 class="title">About the Author</h1>
+    <p class="subtitle">Quentin Burroughs</p>
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="About the Author — Keyglyph Saga" />
-    <meta property="og:description" content="About Quentin Burroughs, author of the Keyglyph Saga." />
-    <meta property="og:image" content="https://keyglyphsaga.github.io/og-image.png" />
-    <meta property="og:url" content="https://keyglyphsaga.github.io/about" />
-    <meta property="og:site_name" content="Keyglyph Saga" />
+    <div class="bio">
+      <p>A self admitted odd duck, Quentin is a writer who loves getting his stories out to the world. A permanent D&amp;D Dungeon Master, Quentin grew used to telling stories to others and even himself as he plotted his player's next major twist or event. With a focus on relatable characters, Quentin wishes to tell stories that he hopes people will, more than anything, enjoy reading.</p>
+    </div>
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="About the Author — Keyglyph Saga" />
-    <meta name="twitter:description" content="About Quentin Burroughs, author of the Keyglyph Saga." />
-    <meta name="twitter:image" content="https://keyglyphsaga.github.io/og-image.png" />
+    <p class="contact">
+      Get in touch —
+      <a href="mailto:keyglyphsaga@yahoo.com" class="contact-link">keyglyphsaga@yahoo.com</a>
+    </p>
+  </div>
+</Base>
 
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;600;700&display=swap" rel="stylesheet" />
-    <style>
-      @font-face {
-        font-family: 'Cardinal';
-        src: url('/fonts/Cardinal.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
-    </style>
+<style>
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 720px;
+    margin: 0 1.25rem;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    background: rgba(16, 14, 32, 0.62);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  }
 
-    <ClientRouter />
-  </head>
-  <body>
+  .title {
+    font-family: 'Cardinal', 'Times New Roman', serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0.3em;
+  }
 
-    <section class="hero">
-      <div class="hero-bg" transition:persist="hero-bg">
-        <img src="/illustration-opt.jpg" alt="" class="hero-bg-img" />
-      </div>
+  .subtitle {
+    font-family: 'Cardinal', 'Times New Roman', serif;
+    font-size: clamp(1.1rem, 3vw, 1.8rem);
+    color: #fff;
+    margin-bottom: 1.8em;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.02em;
+  }
 
-      <canvas id="particles" class="particles-canvas" transition:persist="particles"></canvas>
+  .bio {
+    margin-bottom: 2.2rem;
+  }
 
-      <Tabs active="author" />
+  .bio p {
+    font-family: 'Gelasio', Georgia, serif;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
 
-      <div class="hero-content">
-        <h1 class="title">About the Author</h1>
-        <p class="subtitle">Quentin Burroughs</p>
+  .contact {
+    font-family: 'Gelasio', Georgia, serif;
+    font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.02em;
+  }
 
-        <div class="bio">
-          <p>A self admitted odd duck, Quentin is a writer who loves getting his stories out to the world. A permanent D&amp;D Dungeon Master, Quentin grew used to telling stories to others and even himself as he plotted his player's next major twist or event. With a focus on relatable characters, Quentin wishes to tell stories that he hopes people will, more than anything, enjoy reading.</p>
-        </div>
+  .contact-link {
+    color: #fff;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.45);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.3s ease, color 0.3s ease;
+  }
 
-        <p class="contact">
-          Get in touch —
-          <a href="mailto:keyglyphsaga@yahoo.com" class="contact-link">keyglyphsaga@yahoo.com</a>
-        </p>
-      </div>
-    </section>
+  .contact-link:hover {
+    text-decoration-color: rgba(255, 255, 255, 0.95);
+  }
 
-    <footer>
-      <p>&copy; {year} Quentin Burroughs. All rights reserved.</p>
-    </footer>
-
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html, body {
-        width: 100%;
-        overflow-x: hidden;
-        background: linear-gradient(135deg, #761E2E 0%, #213998 100%);
-        min-height: 100vh;
-      }
-
-      .hero {
-        position: relative;
-        width: 100%;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-      }
-
-      .hero-bg {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-      }
-
-      .particles-canvas {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        pointer-events: none;
-      }
-
-      .hero-bg-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        display: block;
-        mask-image: radial-gradient(ellipse 70% 65% at center, #000 40%, transparent 100%);
-        -webkit-mask-image: radial-gradient(ellipse 70% 65% at center, #000 40%, transparent 100%);
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        max-width: 720px;
-        margin: 0 1.25rem;
-        padding: 3rem 2.5rem;
-        text-align: center;
-        background: rgba(16, 14, 32, 0.62);
-        -webkit-backdrop-filter: blur(12px);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        border-radius: 20px;
-        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
-      }
-
-      .title {
-        font-family: 'Cardinal', 'Times New Roman', serif;
-        font-size: clamp(2.5rem, 7vw, 5rem);
-        font-weight: 700;
-        color: #fff;
-        line-height: 1;
-        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.3);
-        margin-bottom: 0.3em;
-      }
-
-      .subtitle {
-        font-family: 'Cardinal', 'Times New Roman', serif;
-        font-size: clamp(1.1rem, 3vw, 1.8rem);
-        color: #fff;
-        margin-bottom: 1.8em;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-        letter-spacing: 0.02em;
-      }
-
-      .bio {
-        margin-bottom: 2.2rem;
-      }
-
-      .bio p {
-        font-family: 'Gelasio', Georgia, serif;
-        font-size: clamp(1rem, 1.8vw, 1.15rem);
-        line-height: 1.75;
-        color: rgba(255, 255, 255, 0.92);
-        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-      }
-
-      .contact {
-        font-family: 'Gelasio', Georgia, serif;
-        font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-        color: rgba(255, 255, 255, 0.8);
-        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-        letter-spacing: 0.02em;
-      }
-
-      .contact-link {
-        color: #fff;
-        text-decoration: underline;
-        text-decoration-color: rgba(255, 255, 255, 0.45);
-        text-underline-offset: 3px;
-        transition: text-decoration-color 0.3s ease, color 0.3s ease;
-      }
-
-      .contact-link:hover {
-        text-decoration-color: rgba(255, 255, 255, 0.95);
-      }
-
-      footer {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        padding: 1.5rem;
-      }
-
-      footer p {
-        font-size: 0.8rem;
-        color: rgba(255, 255, 255, 0.35);
-        font-family: 'Gelasio', Georgia, serif;
-        margin: 0;
-      }
-
-      @media (max-width: 768px) {
-        .hero-content {
-          margin: 0 1rem;
-          padding: 2.25rem 1.75rem;
-        }
-      }
-    </style>
-    <script>
-      const canvas = document.getElementById('particles');
-      const ctx = canvas.getContext('2d');
-      let particles = [];
-      const COUNT = 25;
-
-      function resize() {
-        const hero = canvas.parentElement;
-        canvas.width = hero.offsetWidth;
-        canvas.height = hero.offsetHeight;
-      }
-
-      function createParticle() {
-        return {
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 5 + 0.5,
-          dx: (Math.random() - 0.5) * 0.4,
-          dy: -(Math.random() * 0.3 + 0.1),
-          opacity: Math.random() * 0.6 + 0.2,
-          fadeDir: Math.random() > 0.5 ? 1 : -1,
-        };
-      }
-
-      function init() {
-        resize();
-        particles = [];
-        for (let i = 0; i < COUNT; i++) particles.push(createParticle());
-      }
-
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (const p of particles) {
-          p.x += p.dx;
-          p.y += p.dy;
-          p.opacity += p.fadeDir * 0.003;
-          if (p.opacity >= 0.8) p.fadeDir = -1;
-          if (p.opacity <= 0.1) p.fadeDir = 1;
-
-          if (p.y < -10 || p.x < -10 || p.x > canvas.width + 10) {
-            Object.assign(p, createParticle(), { y: canvas.height + 10 });
-          }
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(200, 30, 40, ${p.opacity})`;
-          ctx.shadowColor = 'rgba(200, 30, 40, 0.6)';
-          ctx.shadowBlur = 8;
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        }
-        requestAnimationFrame(draw);
-      }
-
-      if (!window.__kgsParticles) {
-        window.__kgsParticles = true;
-        window.addEventListener('resize', resize);
-        init();
-        draw();
-      }
-    </script>
-  </body>
-</html>
+  @media (max-width: 768px) {
+    .hero-content {
+      margin: 0 1rem;
+      padding: 2.25rem 1.75rem;
+    }
+  }
+</style>

@@ -1,0 +1,196 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Tabs from "../components/Tabs.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  ogUrl: string;
+  active: "shadow" | "author";
+}
+
+const { title, description, ogUrl, active } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://keyglyphsaga.github.io/og-image.png" />
+    <meta property="og:url" content={ogUrl} />
+    <meta property="og:site_name" content="Keyglyph Saga" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://keyglyphsaga.github.io/og-image.png" />
+
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <ClientRouter />
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-bg" transition:persist="hero-bg">
+        <img src="/illustration-opt.jpg" alt="" class="hero-bg-img" />
+      </div>
+
+      <canvas id="particles" class="particles-canvas" transition:persist="particles"></canvas>
+
+      <Tabs active={active} />
+
+      <slot />
+    </section>
+
+    <footer>
+      <p>&copy; {year} Quentin Burroughs. All rights reserved.</p>
+    </footer>
+
+    <style is:global>
+      @font-face {
+        font-family: 'Cardinal';
+        src: url('/fonts/Cardinal.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        width: 100%;
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #761E2E 0%, #213998 100%);
+        min-height: 100vh;
+      }
+    </style>
+
+    <style>
+      .hero {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      .particles-canvas {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .hero-bg-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        mask-image: radial-gradient(ellipse 70% 65% at center, #000 40%, transparent 100%);
+        -webkit-mask-image: radial-gradient(ellipse 70% 65% at center, #000 40%, transparent 100%);
+      }
+
+      footer {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 1.5rem;
+      }
+
+      footer p {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.35);
+        font-family: 'Gelasio', Georgia, serif;
+        margin: 0;
+      }
+    </style>
+
+    <script>
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      const COUNT = 25;
+
+      function resize() {
+        const hero = canvas.parentElement;
+        canvas.width = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+      }
+
+      function createParticle() {
+        return {
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 5 + 0.5,
+          dx: (Math.random() - 0.5) * 0.4,
+          dy: -(Math.random() * 0.3 + 0.1),
+          opacity: Math.random() * 0.6 + 0.2,
+          fadeDir: Math.random() > 0.5 ? 1 : -1,
+        };
+      }
+
+      function init() {
+        resize();
+        particles = [];
+        for (let i = 0; i < COUNT; i++) particles.push(createParticle());
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const p of particles) {
+          p.x += p.dx;
+          p.y += p.dy;
+          p.opacity += p.fadeDir * 0.003;
+          if (p.opacity >= 0.8) p.fadeDir = -1;
+          if (p.opacity <= 0.1) p.fadeDir = 1;
+
+          if (p.y < -10 || p.x < -10 || p.x > canvas.width + 10) {
+            Object.assign(p, createParticle(), { y: canvas.height + 10 });
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 30, 40, ${p.opacity})`;
+          ctx.shadowColor = 'rgba(200, 30, 40, 0.6)';
+          ctx.shadowBlur = 8;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+        requestAnimationFrame(draw);
+      }
+
+      if (!window.__kgsParticles) {
+        window.__kgsParticles = true;
+        window.addEventListener('resize', resize);
+        init();
+        draw();
+      }
+    </script>
+  </body>
+</html>
