@@ -8,6 +8,7 @@ class Page(HTMLParser):
     def __init__(self, path):
         super().__init__()
         self.links = []
+        self.images = []
         self.headings = []
         self.in_heading = False
         self.meta = {}
@@ -17,6 +18,8 @@ class Page(HTMLParser):
         attrs = dict(attrs)
         if tag == "a":
             self.links.append(attrs)
+        if tag == "img":
+            self.images.append(attrs)
         if tag == "h1":
             self.in_heading = True
         if tag == "meta":
@@ -43,6 +46,11 @@ for route, current, title, amazon in [
     assert [link["href"] for link in tabs if "active" in link.get("class", "").split()] == [current], route
     if title:
         assert page.headings == [title], (route, page.headings)
+        glyphs = [image for image in page.images if "keyglyph-top-img" in image.get("class", "").split()]
+        expected_glyph = "/self-keyglyph.png" if title == "Self" else "/shadow-keyglyph-new.svg"
+        assert len(glyphs) == 1 and glyphs[0]["src"] == expected_glyph, route
+        assert glyphs[0]["alt"] == f"{title} Keyglyph", route
+        assert (Path("dist") / expected_glyph.lstrip("/")).is_file(), route
         assert page.meta["og:title"] == f"Keyglyph Saga — {title}", route
         ctas = [link for link in page.links if "cta-button" in link.get("class", "").split()]
         assert len(ctas) == 1 and ctas[0]["href"] == amazon, route
