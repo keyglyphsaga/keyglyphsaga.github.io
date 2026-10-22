@@ -10,11 +10,11 @@ const { active } = Astro.props;
   <a
     href="/"
     class:list={["tab", { active: active === "shadow" }]}
-    aria-current={active === "shadow" ? "page" : undefined}>Shadow</a>
+    aria-current={active === "shadow" ? "page" : undefined}>I. Shadow</a>
   <a
     href="/self"
     class:list={["tab", { active: active === "self" }]}
-    aria-current={active === "self" ? "page" : undefined}>Self</a>
+    aria-current={active === "self" ? "page" : undefined}>II. Self</a>
   <a
     href="/about"
     class:list={["tab", { active: active === "author" }]}
@@ -36,6 +36,7 @@ const { active } = Astro.props;
 
   .tab {
     position: relative;
+    white-space: nowrap;
     padding: 0.4rem 1.3rem 0.6rem;
     font-family: 'Gelasio', Georgia, serif;
     font-size: 0.95rem;
@@ -83,6 +84,20 @@ const { active } = Astro.props;
 
     .tab.active::after {
       width: calc(100% - 2rem);
+    }
+  }
+  @media (max-width: 480px) {
+    .tabs {
+      gap: 0;
+      padding-inline: 0.5rem;
+    }
+    .tab {
+      padding-inline: 0.65rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+    .tab.active::after {
+      width: calc(100% - 1.3rem);
     }
   }
 </style>

@@ -5,9 +5,14 @@ import { mkdir } from 'node:fs/promises';
 const browser = await chromium.launch();
 await mkdir('screenshots', { recursive: true });
 try {
-  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }, { width: 320, height: 568 }]) {
     const page = await browser.newPage({ viewport });
     await page.goto('http://localhost:4321/');
+    assert.deepEqual(await page.locator('.tabs a').allTextContents(), ['I. Shadow', 'II. Self', 'Author']);
+    assert(await page.locator('.tabs a').evaluateAll(links => links.every(link => {
+      const rect = link.getBoundingClientRect();
+      return rect.left >= 0 && rect.right <= innerWidth;
+    })), 'All navigation labels must fit the viewport');
     await page.locator('.hero-bg-img').evaluateAll(images => Promise.all(images.map(img => img.decode())));
     await page.evaluate(() => { window.savedBackground = document.querySelector('.hero-bg'); });
     async function verify(self) {
@@ -28,11 +33,11 @@ try {
       await verify(self);
     }
     await verify(false);
-    await navigate('Self', true);
+    await navigate('II. Self', true);
     await page.screenshot({ path: `screenshots/self-${viewport.width}.png` });
     await navigate('Author', false);
-    await navigate('Self', true);
-    await navigate('Shadow', false);
+    await navigate('II. Self', true);
+    await navigate('I. Shadow', false);
     await page.goBack();
     await verify(true);
     await page.goForward();
