@@ -29,13 +29,13 @@ const { title, description, path, active, amazonUrl, keyglyph } = Astro.props;
     <p class="subtitle">The Keyglyph Saga</p>
     <p class="author">by <a href="/about" class="author-link">Quentin Burroughs</a></p>
 
-    <div class="book-blurb">
-      {blurbs[active].map(paragraph => <p>{paragraph}</p>)}
-    </div>
-
     <a href={amazonUrl} class="cta-button" target="_blank" rel="noopener">
       Buy on Amazon
     </a>
+
+    <div class="book-blurb">
+      {blurbs[active].map(paragraph => <p>{paragraph}</p>)}
+    </div>
   </div>
 </Base>
 
@@ -54,7 +54,7 @@ const { title, description, path, active, amazonUrl, keyglyph } = Astro.props;
 
   .book-blurb {
     max-width: 42rem;
-    margin-bottom: 1.8rem;
+    margin-top: 1.8rem;
     padding: 1.4rem 1.6rem;
     border-radius: 12px;
     background: rgba(10, 12, 22, 0.72);
