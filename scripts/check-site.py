@@ -10,12 +10,16 @@ class Page(HTMLParser):
         self.links = []
         self.images = []
         self.headings = []
+        self.book_content_order = []
         self.in_heading = False
         self.meta = {}
         self.feed(path.read_text())
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        for marker in ("cta-button", "book-blurb"):
+            if marker in (attrs.get("class") or "").split():
+                self.book_content_order.append(marker)
         if tag == "a":
             self.links.append(attrs)
         if tag == "img":
@@ -54,6 +58,7 @@ for route, current, title, amazon in [
         assert page.meta["og:title"] == f"Keyglyph Saga — {title}", route
         ctas = [link for link in page.links if "cta-button" in link.get("class", "").split()]
         assert len(ctas) == 1 and ctas[0]["href"] == amazon, route
+        assert page.book_content_order == ["cta-button", "book-blurb"], (route, page.book_content_order)
         assert ctas[0]["target"] == "_blank" and "noopener" in ctas[0]["rel"].split(), route
     print(f"PASS: {route} navigation, active state, and book details")
 
