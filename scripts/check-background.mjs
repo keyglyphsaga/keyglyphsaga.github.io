@@ -1,6 +1,8 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
+
+const blurbs = JSON.parse(await readFile('src/data/blurbs.json', 'utf8'));
 
 const browser = await chromium.launch();
 await mkdir('screenshots', { recursive: true });
@@ -15,6 +17,15 @@ try {
     })), 'All navigation labels must fit the viewport');
     await page.locator('.hero-bg-img').evaluateAll(images => Promise.all(images.map(img => img.decode())));
     await page.evaluate(() => { window.savedBackground = document.querySelector('.hero-bg'); });
+    async function verifyBlurb(book) {
+      assert.deepEqual(await page.locator('.book-blurb p').allTextContents(), blurbs[book]);
+      assert(await page.evaluate(() => {
+        const nav = document.querySelector('.tabs').getBoundingClientRect();
+        const glyph = document.querySelector('.keyglyph-top-img').getBoundingClientRect();
+        const blurb = document.querySelector('.book-blurb').getBoundingClientRect();
+        return glyph.top >= nav.bottom && blurb.left >= 0 && blurb.right <= innerWidth;
+      }), 'Book content must fit without overlapping navigation');
+    }
     async function verify(self) {
       await page.waitForFunction(self => {
         const opacity = selector => Number(getComputedStyle(document.querySelector(selector)).opacity);
@@ -33,8 +44,11 @@ try {
       await verify(self);
     }
     await verify(false);
+    await verifyBlurb('shadow');
+    await page.screenshot({ path: `screenshots/shadow-${viewport.width}.png`, fullPage: true });
     await navigate('II. Self', true);
-    await page.screenshot({ path: `screenshots/self-${viewport.width}.png` });
+    await verifyBlurb('self');
+    await page.screenshot({ path: `screenshots/self-${viewport.width}.png`, fullPage: true });
     await navigate('Author', false);
     await navigate('II. Self', true);
     await navigate('I. Shadow', false);
