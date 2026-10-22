@@ -42,10 +42,11 @@ const year = new Date().getFullYear();
 
     <ClientRouter />
   </head>
-  <body>
+  <body data-background={active === "self" ? "self" : "original"}>
     <section class="hero">
       <div class="hero-bg" transition:persist="hero-bg">
-        <img src="/illustration-opt.jpg" alt="" class="hero-bg-img" />
+        <img src="/illustration-opt.jpg" alt="" class="hero-bg-img hero-bg-original" />
+        <img src="/self-background.jpg" alt="" class="hero-bg-img hero-bg-self" />
       </div>
 
       <canvas id="particles" class="particles-canvas" transition:persist="particles"></canvas>
@@ -107,6 +108,9 @@ const year = new Date().getFullYear();
       }
 
       .hero-bg-img {
+        position: absolute;
+        inset: 0;
+        transition: opacity 800ms ease-in-out;
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -114,6 +118,24 @@ const year = new Date().getFullYear();
         display: block;
         mask-image: radial-gradient(ellipse 70% 65% at center, #000 40%, transparent 100%);
         -webkit-mask-image: radial-gradient(ellipse 70% 65% at center, #000 40%, transparent 100%);
+      }
+
+      .hero-bg-self {
+        opacity: 0;
+      }
+
+      :global(body[data-background="self"]) .hero-bg-original {
+        opacity: 0;
+      }
+
+      :global(body[data-background="self"]) .hero-bg-self {
+        opacity: 1;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .hero-bg-img {
+          transition: none;
+        }
       }
 
       footer {
