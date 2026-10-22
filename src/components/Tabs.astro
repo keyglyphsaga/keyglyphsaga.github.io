@@ -1,6 +1,6 @@
 ---
 interface Props {
-  active: "shadow" | "author";
+  active: "shadow" | "self" | "author";
 }
 
 const { active } = Astro.props;
@@ -11,6 +11,10 @@ const { active } = Astro.props;
     href="/"
     class:list={["tab", { active: active === "shadow" }]}
     aria-current={active === "shadow" ? "page" : undefined}>Shadow</a>
+  <a
+    href="/self"
+    class:list={["tab", { active: active === "self" }]}
+    aria-current={active === "self" ? "page" : undefined}>Self</a>
   <a
     href="/about"
     class:list={["tab", { active: active === "author" }]}
